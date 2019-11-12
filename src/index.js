@@ -10,8 +10,8 @@ import {
 } from "./utils";
 
 class Masonry extends React.PureComponent {
+  
   _mounted = false;
-  // masonryListRef;
 
   static propTypes = {
     itemSource: PropTypes.array,
@@ -188,19 +188,17 @@ class Masonry extends React.PureComponent {
     }
 
     return (
-      <View style={
-        !this.props.containerWidth
-          ? { flex: 1 }
-          : { flex: 1, width: this.props.containerWidth }
-      }
-            onLayout={(event) => {
-              if (!this.props.containerWidth) {
-                this._setParentDimensions(event, this.props.columns,
-                  this.props.spacing);
-                this._layoutChange(event);
-              }
-            }}>
+      <View
+        style={this.props.containerStyle}
+        onLayout={(event) => {
+          if (!this.props.containerWidth) {
+            this._setParentDimensions(event, this.props.columns,
+              this.props.spacing);
+            this._layoutChange(event);
+          }
+        }}>
         <MasonryList
+          ref={ref => this.masonryListRef = ref}
           layoutDimensions={this.state.layoutDimensions}
           containerWidth={this.props.containerWidth}
           itemSource={this.props.itemSource}
@@ -225,6 +223,7 @@ class Masonry extends React.PureComponent {
           onPressImage={this.props.onPressImage}
           onLongPressImage={this.props.onLongPressImage}
           onEndReachedThreshold={this.props.onEndReachedThreshold}
+          flatListStyle={this.props.flatListStyle || {}}
         />
       </View>
     );
