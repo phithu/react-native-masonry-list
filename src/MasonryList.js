@@ -79,6 +79,10 @@ export default class MasonryList extends React.PureComponent {
   columnCounting = 1;
   columnHighestHeight = null;
 
+  getRef = () => {
+    return this.flatListRef;
+  };
+
   UNSAFE_componentWillMount() {
     InteractionManager.runAfterInteractions(() => {
       if (this.props.containerWidth) {
@@ -554,11 +558,11 @@ export default class MasonryList extends React.PureComponent {
   render() {
     return (
       <FlatList
+        ref={ref => this.flatListRef = ref}
         style={{
-          flex: 1,
+          ...this.props.flatListStyle,
           padding: (this.props.layoutDimensions.width / 100) *
             this.props.spacing / 2,
-          backgroundColor: this.props.backgroundColor,
         }}
         contentContainerStyle={[
           {
