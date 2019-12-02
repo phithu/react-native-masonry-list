@@ -9,8 +9,8 @@ import {
   isElement,
 } from "./utils";
 
-class Masonry extends React.PureComponent {
-  
+class Masonry extends React.Component {
+
   _mounted = false;
 
   static propTypes = {
@@ -90,36 +90,8 @@ class Masonry extends React.PureComponent {
     };
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this._mounted = true;
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (!nextProps.containerWidth && !this.props.containerWidth) {
-      if (nextProps.columns !== this.props.columns ||
-        nextProps.spacing !== this.props.spacing) {
-        this._setColumnDimensions(
-          {
-            height: this.state.layoutDimensions.height,
-            width: this.state.layoutDimensions.width,
-          },
-          nextProps.columns,
-          nextProps.spacing,
-        );
-      }
-    } else if (nextProps.containerWidth || this.props.containerWidth) {
-      if (nextProps.containerWidth !== this.props.containerWidth ||
-        nextProps.columns !== this.props.columns ||
-        nextProps.spacing !== this.props.spacing) {
-        this.setState({
-          layoutDimensions: {
-            width: nextProps.containerWidth,
-            gutterSize: (nextProps.containerWidth / 100) * nextProps.spacing,
-            columnWidth: nextProps.containerWidth / nextProps.columns,
-          },
-        });
-      }
-    }
   }
 
   _layoutChange = (ev) => {
