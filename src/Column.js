@@ -96,7 +96,7 @@ export default class Column extends React.PureComponent {
 	render() {
 		return (
 			<FlatList
-				style={{flex: 1}}
+				style={{flex: 1, paddingBottom: 20}}
 				contentContainerStyle={{
 					width: this.props.layoutDimensions.columnWidth,
 					overflow: "hidden",
